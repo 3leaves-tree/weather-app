@@ -11,8 +11,8 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      details: null
-
+      details: null,
+      city: null
     }
 
     this.handleSearch = this.handleSearch.bind(this);
@@ -22,8 +22,8 @@ class App extends React.Component {
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${location}&appid=${apiKey}&units=imperial`;
     axios.get(url)
     .then((results) => {
-      console.log(results.data);
       this.setState({
+        city: location,
         details: results.data
       })
     })
@@ -33,10 +33,10 @@ class App extends React.Component {
     return (
       <div className="App">
         <header className="App-header">
-          <h1>What is the weather like???</h1>
+          <h1>What is the weather in_____?</h1>
         </header>
         <SearchBar handleSearch={this.handleSearch}/>
-        <DetailCard details={this.state.details}/>
+        <DetailCard details={this.state.details} city={this.state.city}/>
       </div>
     );
 

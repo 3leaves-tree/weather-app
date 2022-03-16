@@ -23,7 +23,6 @@ class SearchBar extends React.Component {
   }
 
   submit(e) {
-    console.log('clicked')
     e.preventDefault();
     this.props.handleSearch(this.state.location);
     this.setState({
@@ -34,22 +33,22 @@ class SearchBar extends React.Component {
 
   render() {
     return (
-      <Paper
-        component="form"
-        sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400 }}
-      >
+      <div className='search'>
+        <Paper
+          component="form"
+          sx={{ p: '2px 4px', display: 'flex', alignItems: 'center', width: 400 }}>
+          <InputBase
+            sx={{ ml: 1, flex: 1 }}
+            value = {this.state.location}
+            onChange = {this.handleChange}
+            placeholder="San Francisco, New York City, London..."
+          />
+          <IconButton onClick={this.submit} sx={{ p: '10px' }} aria-label="search">
+            <SearchIcon />
+          </IconButton>
+       </Paper>
+      </div>
 
-        <InputBase
-          sx={{ ml: 1, flex: 1 }}
-          value = {this.state.location}
-          onChange = {this.handleChange}
-          placeholder="Weather in your city"
-        />
-        <IconButton onClick={this.submit} sx={{ p: '10px' }} aria-label="search">
-          <SearchIcon />
-        </IconButton>
-
-      </Paper>
     );
   }
 

@@ -1,22 +1,21 @@
+import './App.css';
 import React from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
 
 function createData(detail, value, unit) {
   return { detail, value, unit };
 }
 
 const DetailCard = function(props) {
-  const [page] = React.useState(0);
-  const [rowsPerPage] = React.useState(6);
+
+  const city = props.city;
 
   if (props.details) {
     const rows = [
-      createData('Weather',props.details.weather[0].main,''),
+      createData(`Weather in ${city}`,props.details.weather[0].main,''),
       createData('Current Temperature', Math.floor(props.details.main.temp), '℉'),
       createData('High Temperature', Math.floor(props.details.main.temp_min), '℉'),
       createData('Low Temperature', Math.floor(props.details.main.temp_max), '℉'),
@@ -24,25 +23,26 @@ const DetailCard = function(props) {
       createData('Wind', Math.floor(props.details.wind.speed), 'mph'),
     ]
     return (
-      <TableContainer component={Paper}>
-        <Table sx={{ maxWidth: 600 }} aria-label="custom pagination table">
-          <TableBody>
-            {(rowsPerPage > 0
-              ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-              : rows
-            ).map((row, i) => (
-              <TableRow key={i}>
-                <TableCell component="th" scope="row">
+      <div className='detail'>
+          <Table sx={{ minWidth: 600 }} >
+            <TableBody>
+              {rows.map((row, i) => (
+                <TableRow key={i} >
+                  <TableCell component="th" scope="row" sx={{
+                    fontSize: '1.1rem'
+                  }}>
                   {row.detail}
-                </TableCell>
-                <TableCell style={{ width: 200 }} align="right">
+                  </TableCell>
+                  <TableCell style={{ width: 200 }} align="right" sx={{
+                    fontSize: '1.1rem'
+                  }}>
                   {row.value.toString()+row.unit}
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+      </div>
     );
   } else {
     return null;
